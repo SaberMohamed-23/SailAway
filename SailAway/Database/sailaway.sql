@@ -106,10 +106,11 @@ CREATE TABLE boten
 
     CONSTRAINT PK_boten PRIMARY KEY (boot_id),
 
-    -- Een boot mag alleen een type krijgen dat op die locatie wordt aangeboden.
-    CONSTRAINT FK_boten_locatie_bootsoort
-        FOREIGN KEY (locatie_id, bootsoort_id)
-        REFERENCES locatie_bootsoorten(locatie_id, bootsoort_id),
+    -- Each boat references a bootsoort and a locatie directly.
+    CONSTRAINT FK_boten_bootsoort
+        FOREIGN KEY (bootsoort_id) REFERENCES bootsoorten(bootsoort_id),
+    CONSTRAINT FK_boten_locatie
+        FOREIGN KEY (locatie_id) REFERENCES locaties(locatie_id),
 
     CONSTRAINT CK_boten_capaciteit CHECK (capaciteit > 0),
     CONSTRAINT CK_boten_bouwjaar CHECK (bouwjaar BETWEEN 1900 AND 2100),
@@ -125,7 +126,6 @@ CREATE TABLE reserveringen
     reservering_id INT NOT NULL AUTO_INCREMENT,
     klant_id INT NOT NULL,
     boot_id INT NOT NULL,
-    locatie_id INT NOT NULL,
     datum DATE NOT NULL,
     begintijd TIME NOT NULL,
     eindtijd TIME NOT NULL,
@@ -138,10 +138,8 @@ CREATE TABLE reserveringen
         FOREIGN KEY (klant_id) REFERENCES klanten(klant_id)
         ON DELETE CASCADE,
 
-    -- Hierdoor moet de gekozen reserveringslocatie dezelfde locatie zijn als de boot.
-    CONSTRAINT FK_reserveringen_boot_locatie
-        FOREIGN KEY (boot_id, locatie_id)
-        REFERENCES boten(boot_id, locatie_id),
+    CONSTRAINT FK_reserveringen_boot
+        FOREIGN KEY (boot_id) REFERENCES boten(boot_id),
 
     CONSTRAINT CK_reserveringen_personen CHECK (aantal_personen > 0),
     CONSTRAINT CK_reserveringen_tijd CHECK (eindtijd > begintijd)
@@ -248,10 +246,7 @@ INSERT INTO locaties (locatie_id, naam, adres, beschrijving) VALUES
 (2, 'Sail Away Oss', 'Oss', 'Startlocatie in Oss.'),
 (3, 'Sail Away Veghel', 'Veghel', 'Startlocatie in Veghel.');
 
-INSERT INTO locatie_bootsoorten (locatie_id, bootsoort_id) VALUES
-(1, 1), (1, 2),
-(2, 2), (2, 3),
-(3, 1), (3, 3);
+-- (removed locatie_bootsoorten mapping table; availability derived from boten table)
 
 INSERT INTO boten
 (boot_id, naam, merk, bootsoort_id, capaciteit, bouwjaar, lengte, omschrijving, prijs_per_uur, locatie_id)
@@ -270,10 +265,11 @@ VALUES
 (1, 1, 'Test', NULL, 'Klant', '2000-01-01', '0612345678', 'test@sailaway.nl');
 
 -- Voorbeeldreservering. Deze kan later via de applicatie worden verwijderd.
+-- Single reservation example (location derived from boot)
 INSERT INTO reserveringen
-(reservering_id, klant_id, boot_id, locatie_id, datum, begintijd, eindtijd, aantal_personen, status)
+ (reservering_id, klant_id, boot_id, datum, begintijd, eindtijd, aantal_personen, status)
 VALUES
-(1, 1, 1, 3, '2026-10-01', '10:00:00', '12:00:00', 4, 'Actief');
+ (1, 1, 1, '2026-10-01', '10:00:00', '12:00:00', 4, 'Actief');
 
 -- =========================================================
 -- TESTDATA / DUMMY DATA
@@ -302,12 +298,7 @@ INSERT INTO klanten (klant_id, gebruiker_id, voornaam, tussenvoegsel, achternaam
 INSERT INTO bootsoorten (bootsoort_id, naam, beschrijving) VALUES
 (4, 'Sloep', 'Kleine, stabiele boot voor ontspannen tochten.');
 
--- Add location-bootsoort mappings that are needed by the boats below
-INSERT INTO locatie_bootsoorten (locatie_id, bootsoort_id) VALUES
-(1, 3), -- allow kano's at locatie 1
-(3, 4), -- allow sloepen at locatie 3
-(2, 1), -- allow motorboten at locatie 2
-(1, 4); -- allow sloepen at locatie 1
+-- (removed locatie_bootsoorten test mappings; availability derived from boten table)
 
 -- Additional boten to reach at least 10 total boats (existing 3 + 7 added = 10)
 INSERT INTO boten
@@ -324,15 +315,15 @@ VALUES
 -- Dummy reserveringen to reach at least 10 reservations (including existing id 1)
 -- All foreign keys reference existing klanten and boten above; times/dates chosen to avoid overlapping active bookings for same boot.
 INSERT INTO reserveringen
- (reservering_id, klant_id, boot_id, locatie_id, datum, begintijd, eindtijd, aantal_personen, status)
+ (reservering_id, klant_id, boot_id, datum, begintijd, eindtijd, aantal_personen, status)
 VALUES
- (2, 2, 2, 1, '2026-09-15', '09:00:00', '11:00:00', 3, 'Actief'),
- (3, 3, 3, 2, '2026-09-16', '14:00:00', '16:00:00', 2, 'Voltooid'),
- (4, 4, 4, 1, '2026-09-20', '10:00:00', '12:00:00', 5, 'Geannuleerd'),
- (5, 5, 5, 2, '2026-09-21', '13:00:00', '15:00:00', 4, 'Actief'),
- (6, 6, 6, 1, '2026-09-22', '09:00:00', '10:30:00', 2, 'Actief'),
- (7, 2, 7, 3, '2026-09-25', '11:00:00', '13:00:00', 4, 'Actief'),
- (8, 3, 8, 2, '2026-09-26', '15:00:00', '17:00:00', 3, 'Voltooid'),
- (9, 4, 9, 1, '2026-09-27', '10:00:00', '12:00:00', 6, 'Actief'),
- (10, 5, 10, 2, '2026-09-28', '08:00:00', '09:30:00', 2, 'Actief');
+ (2, 2, 2, '2026-09-15', '09:00:00', '11:00:00', 3, 'Actief'),
+ (3, 3, 3, '2026-09-16', '14:00:00', '16:00:00', 2, 'Voltooid'),
+ (4, 4, 4, '2026-09-20', '10:00:00', '12:00:00', 5, 'Geannuleerd'),
+ (5, 5, 5, '2026-09-21', '13:00:00', '15:00:00', 4, 'Actief'),
+ (6, 6, 6, '2026-09-22', '09:00:00', '10:30:00', 2, 'Actief'),
+ (7, 2, 7, '2026-09-25', '11:00:00', '13:00:00', 4, 'Actief'),
+ (8, 3, 8, '2026-09-26', '15:00:00', '17:00:00', 3, 'Voltooid'),
+ (9, 4, 9, '2026-09-27', '10:00:00', '12:00:00', 6, 'Actief'),
+ (10, 5, 10, '2026-09-28', '08:00:00', '09:30:00', 2, 'Actief');
 
