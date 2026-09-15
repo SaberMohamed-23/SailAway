@@ -2,6 +2,7 @@ namespace SailAway.Models;
 
 public class Klant
 {
+    public int? GebruikerId { get; set; }
     public int KlantId { get; set; }
     public string Voornaam { get; set; } = string.Empty;
     public string? Tussenvoegsel { get; set; }
@@ -9,7 +10,6 @@ public class Klant
     public DateTime Geboortedatum { get; set; }
     public string Telefoonnummer { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string Wachtwoord { get; set; } = string.Empty;
 
     public string VolledigeNaam
     {
