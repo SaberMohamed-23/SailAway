@@ -11,6 +11,11 @@ public partial class FrmLocatiesBeheer : Form
         btnVerwijderen.Click += BtnVerwijderen_Click;
     }
 
+    // Designer compatibility
+    private void btnToevoegen_Click(object? s, EventArgs e) => BtnToevoegen_Click(s, e);
+    private void btnBewerken_Click(object? s, EventArgs e) => BtnBewerken_Click(s, e);
+    private void btnVerwijderen_Click(object? s, EventArgs e) => BtnVerwijderen_Click(s, e);
+
     private void FrmLocatiesBeheer_Load(object? sender, EventArgs e) => LoadLocaties();
 
     private void BtnToevoegen_Click(object? s, EventArgs e) { new FrmLocatieToevoegen().ShowDialog(); LoadLocaties(); }

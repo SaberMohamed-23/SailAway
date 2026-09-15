@@ -13,6 +13,11 @@ public partial class FrmKlantenBeheer : Form
         dgv.SelectionChanged += Dgv_SelectionChanged;
     }
 
+    // Designer expects these old-named handlers; forward to new implementations
+    private void btnToevoegen_Click(object? s, EventArgs e) => BtnToevoegen_Click(s, e);
+    private void btnBewerken_Click(object? s, EventArgs e) => BtnBewerken_Click(s, e);
+    private void btnVerwijderen_Click(object? s, EventArgs e) => BtnVerwijderen_Click(s, e);
+
     private void FrmKlantenBeheer_Load(object? sender, EventArgs e)
     {
         LoadKlanten();
@@ -130,6 +135,6 @@ public partial class FrmKlantenBeheer : Form
     }
 
     private string TimeSpanToTime(TimeSpan t) => DateTime.Today.Add(t).ToString("HH:mm");
-    private void btnVerwijderen_Click(object? s, EventArgs e) => MessageBox.Show("Weet u zeker dat u deze klant wilt verwijderen?", "Klant verwijderen", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+    // (removed old stub) actual delete logic implemented in BtnVerwijderen_Click above
 
 }
