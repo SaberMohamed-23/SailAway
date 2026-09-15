@@ -1,53 +1,46 @@
 SAILAWAY - MYSQL / XAMPP DATABASE
 ================================
 
-Wat is toegevoegd?
-- Models/Klant.cs
-- Models/Boot.cs
-- Models/Bootsoort.cs
-- Models/Locatie.cs
-- Models/Reservering.cs
-- Models/LocatieBootsoort.cs
-- Database/DatabaseConnection.cs
-- Database/sailaway.sql
-- NuGet package MySqlConnector
+Deze versie is afgestemd op de SailAway-usecases uit de projectbronnen.
 
-DATABASE AANMAKEN IN XAMPP
-1. Start Apache en MySQL in het XAMPP Control Panel.
-2. Open phpMyAdmin.
-3. Kies Importeren / Import.
-4. Selecteer SailAway/Database/sailaway.sql.
-5. Voer het script uit. De database 'sailaway' wordt automatisch aangemaakt.
+BELANGRIJKSTE TABELLEN
+- klanten
+- bootsoorten
+- locaties
+- locatie_bootsoorten
+- boten
+- reserveringen
+
+WAT IS EXTRA GECONTROLEERD?
+- klanten zoeken op achternaam / telefoonnummer / email
+- boten gekoppeld aan bootsoort + locatie
+- locatie bepaalt welke bootsoorten aangeboden mogen worden
+- reservering bevat datum, begin/eindtijd, locatie, aantal personen en status
+- status = Actief / Geannuleerd / Voltooid
+- dubbele boeking van dezelfde boot wordt door database-trigger geblokkeerd
+- aantal personen mag niet hoger zijn dan bootcapaciteit
+- indexes toegevoegd voor zoeken/filteren/beschikbaarheid
+
+DATABASE IMPORTEREN
+1. Start Apache en MySQL in XAMPP.
+2. Open http://localhost/phpmyadmin
+3. Klik op Importeren.
+4. Kies SailAway/Database/sailaway.sql.
+5. Klik op Importeren / Go.
+
+LET OP
+Het script begint met DROP DATABASE IF EXISTS sailaway.
+Bij opnieuw importeren wordt de bestaande SailAway-database dus opnieuw opgebouwd.
 
 DATABASEVERBINDING
-De verbinding staat in:
 SailAway/Database/DatabaseConnection.cs
 
-Standaard XAMPP instellingen die in het project staan:
+Standaard:
 Server   = 127.0.0.1
 Port     = 3306
 Database = sailaway
 User     = root
 Password = leeg
 
-Als jouw MySQL root-gebruiker wel een wachtwoord heeft, pas alleen Password= aan.
-
-VERBINDING TESTEN IN CODE
-Je kunt later bijvoorbeeld gebruiken:
-
-using SailAway.Database;
-
-if (DatabaseConnection.TestConnection(out string message))
-{
-    MessageBox.Show(message);
-}
-else
-{
-    MessageBox.Show(message);
-}
-
-BELANGRIJK
-- De bestaande Windows Forms interfaces zijn niet vervangen.
-- Er is nog geen CRUD repository/service code toegevoegd; dit pakket bevat de databaseverbinding en models.
-- De database gebruikt de tabellen: klanten, bootsoorten, locaties, boten, reserveringen en locatie_bootsoorten.
-- Voor een echte productie-app hoort een wachtwoord gehasht te worden. Voor deze eenvoudige schoolopdracht is het model bewust eenvoudig gehouden.
+Zie ook:
+SailAway/Database/USECASE_DATABASE_MAPPING.txt

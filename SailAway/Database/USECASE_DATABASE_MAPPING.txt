@@ -1,0 +1,61 @@
+SAILAWAY - USECASE NAAR DATABASE
+================================
+
+1. KLANT REGISTREREN / INLOGGEN / EIGEN GEGEVENS BEHEREN
+Tabel: klanten
+Velden: voornaam, tussenvoegsel, achternaam, geboortedatum,
+telefoonnummer, email, wachtwoord.
+Email is uniek zodat hetzelfde e-mailadres niet dubbel kan worden geregistreerd.
+
+2. KLANTEN ZOEKEN
+Tabel: klanten
+Indexen op achternaam en telefoonnummer; email heeft al een unieke index.
+
+3. BOTEN BEHEREN
+Tabel: boten
+Velden: naam, merk, bootsoort, capaciteit, bouwjaar, lengte,
+omschrijving, prijs per uur en locatie.
+
+4. BOOTSOORTEN BEHEREN
+Tabel: bootsoorten
+Velden: naam en beschrijving.
+
+5. LOCATIES BEHEREN
+Tabel: locaties
+Velden: naam, adres en beschrijving.
+
+6. NIET IEDERE LOCATIE BIEDT DEZELFDE BOOTSOORTEN AAN
+Tabel: locatie_bootsoorten
+Dit is de koppeltabel tussen locaties en bootsoorten.
+Een boot mag alleen worden gekoppeld aan een locatie + bootsoort-combinatie
+waarvan in locatie_bootsoorten staat dat deze wordt aangeboden.
+
+7. BOTEN FILTEREN
+De tabel boten bevat locatie_id, bootsoort_id en capaciteit.
+Daarmee kan worden gefilterd op locatie, type boot en aantal personen.
+Datum en tijd worden gecontroleerd tegen reserveringen.
+
+8. RESERVERING MAKEN / WIJZIGEN / ANNULEREN
+Tabel: reserveringen
+Velden: klant, boot, locatie, datum, begintijd, eindtijd,
+aantal personen en status.
+Status: Actief, Geannuleerd of Voltooid.
+
+9. GEKOPPELDE RESERVERINGEN VAN EEN KLANT TONEN
+reserveringen.klant_id verwijst naar klanten.klant_id.
+
+10. BESCHIKBAARHEID / DUBBELE BOEKING VOORKOMEN
+De database bevat triggers voor INSERT en UPDATE.
+Een reservering wordt geweigerd wanneer dezelfde boot op dezelfde datum
+een overlappende niet-geannuleerde reservering heeft.
+
+11. CAPACITEIT
+De database weigert een reservering als aantal_personen groter is dan
+de capaciteit van de gekozen boot.
+
+OPMERKING
+De bron beschrijft medewerkers/beheerders als gebruikers van de beheeromgeving,
+maar geeft geen velden of eisen voor medewerkeraccounts of rollen.
+Daarom is er bewust geen extra medewerkers- of rollentabel verzonnen.
+Als de definitieve usecase aparte logins/rechten voor Medewerker, Beheerder en
+Leidinggevende eist, moet dat als aparte uitbreiding worden toegevoegd.
