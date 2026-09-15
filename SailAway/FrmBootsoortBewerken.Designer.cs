@@ -89,7 +89,7 @@ partial class FrmBootsoortBewerken
         AutoScaleDimensions = new SizeF(9F, 23F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
-        ClientSize = new Size(1000, 542);
+        ClientSize = new Size(876, 563);
         Controls.Add(lblTitel);
         Controls.Add(lbl_txtNaam);
         Controls.Add(txtNaam);
