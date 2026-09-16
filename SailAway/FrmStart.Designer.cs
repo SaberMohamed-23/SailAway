@@ -42,9 +42,10 @@ partial class FrmStart
         MainMenuStrip = menuStrip1;
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(1100, 700);
+        MinimumSize = new Size(1000, 650);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

@@ -28,9 +28,10 @@ partial class FrmInloggen
         Controls.AddRange(new Control[] { lblTitel, lbl_txtEmail, txtEmail, lbl_txtWachtwoord, txtWachtwoord, btnPrimary, btnAnnuleren });
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(700, 520);
+        MinimumSize = new Size(640, 480);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

@@ -25,16 +25,17 @@ partial class FrmMijnReserveringen
         dgv.Columns.Add("Begintijd", "Begintijd");
         dgv.Columns.Add("Eindtijd", "Eindtijd");
         dgv.Columns.Add("Status", "Status");
-        dgv.Rows.Add("Sea Star", "Veghel", "15-09-2026", "13:00", "15:00", "Actief");
+        // runtime rows are populated from database in code-behind; remove designer sample rows
         btnWijzigen = new Button(); btnWijzigen.Location = new Point(825,115); btnWijzigen.Size = new Size(120,38); btnWijzigen.Text = "Wijzigen"; btnWijzigen.BackColor = Color.FromArgb(181, 32, 46); btnWijzigen.ForeColor = Color.White; btnWijzigen.FlatStyle = FlatStyle.Flat; btnWijzigen.Click += btnWijzigen_Click;
         btnAnnulerenRes = new Button(); btnAnnulerenRes.Location = new Point(825,170); btnAnnulerenRes.Size = new Size(120,38); btnAnnulerenRes.Text = "Reservering annuleren"; btnAnnulerenRes.Click += btnAnnulerenRes_Click;
         btnTerug = new Button(); btnTerug.Location = new Point(825,225); btnTerug.Size = new Size(120,38); btnTerug.Text = "Terug"; btnTerug.Click += btnTerug_Click;
         Controls.AddRange(new Control[] { lblTitel, dgv, btnWijzigen, btnAnnulerenRes, btnTerug });
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(1000, 680);
+        MinimumSize = new Size(900, 620);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

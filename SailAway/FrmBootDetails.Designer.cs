@@ -26,6 +26,10 @@ partial class FrmBootDetails
         mnuBoten.Text = "Boten";
         mnuReserveringen.Text = "Mijn reserveringen";
         mnuAccount.Text = "Account";
+        mnuHome.Click += (s, e) => { var f = new FrmStart(); f.Show(); };
+        mnuBoten.Click += (s, e) => { var f = new FrmBoten(); f.Show(); };
+        mnuReserveringen.Click += (s, e) => { var f = new FrmMijnReserveringen(); f.Show(); };
+        mnuAccount.Click += (s, e) => { var f = new FrmAccount(); f.Show(); };
         lblTitel = new Label();
         lblTitel.AutoSize = true;
         lblTitel.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
@@ -43,9 +47,10 @@ partial class FrmBootDetails
         Controls.AddRange(new Control[] { menuStrip1, lblTitel, picBoot, lblInfo, lblOmschrijvingTitel, txtOmschrijving, btnReserveren, btnTerug }); MainMenuStrip = menuStrip1;
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(900, 650);
+        MinimumSize = new Size(800, 600);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

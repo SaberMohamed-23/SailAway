@@ -14,7 +14,25 @@ public partial class FrmBootDetails : Form
         Load += FrmBootDetails_Load;
     }
 
-    private void btnReserveren_Click(object? sender, EventArgs e) => new FrmReserveringMaken().ShowDialog();
+    private void btnReserveren_Click(object? sender, EventArgs e)
+    {
+        if (!Session.IsIngelogd)
+        {
+            MessageBox.Show("Je moet eerst inloggen om te kunnen reserveren.", "Inloggen vereist", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using var f = new FrmInloggen();
+            f.ShowDialog();
+            if (!Session.IsIngelogd) return;
+        }
+
+        // Pass boot id to reservering form
+        using var f2 = new FrmReserveringMaken();
+        // If FrmReserveringMaken exposes a constructor or property to accept boot id, set it; otherwise fallback to show dialog
+        var ctor = f2.GetType().GetConstructor(Type.EmptyTypes);
+        // attempt to set public property BootId if exists
+        var prop = f2.GetType().GetProperty("BootId");
+        if (prop != null && prop.CanWrite) prop.SetValue(f2, _bootId);
+        f2.ShowDialog();
+    }
 
     private void btnTerug_Click(object? sender, EventArgs e)
     {

@@ -51,9 +51,10 @@ partial class FrmReserveringMaken
         MainMenuStrip = menuStrip1;
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(800, 600);
+        MinimumSize = new Size(720, 560);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

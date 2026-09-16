@@ -86,10 +86,11 @@ partial class FrmBootsoortBewerken
         // 
         // FrmBootsoortBewerken
         // 
-        AutoScaleDimensions = new SizeF(9F, 23F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(876, 563);
+        ClientSize = new Size(700, 520);
+        MinimumSize = new Size(640, 480);
         Controls.Add(lblTitel);
         Controls.Add(lbl_txtNaam);
         Controls.Add(txtNaam);

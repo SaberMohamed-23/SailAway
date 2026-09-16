@@ -36,9 +36,10 @@ partial class FrmReserveringWijzigen
         Controls.AddRange(new Control[] { lblTitel, lbl_txtBoot, txtBoot, lbl_cmbLocatie, cmbLocatie, lbl_dtpDatum, dtpDatum, lbl_dtpBegin, dtpBegin, lbl_dtpEind, dtpEind, lbl_nudPersonen, nudPersonen, btnPrimary, btnAnnuleren });
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(900, 640);
+        MinimumSize = new Size(800, 600);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

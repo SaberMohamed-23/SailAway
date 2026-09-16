@@ -42,6 +42,7 @@ public partial class FrmInloggen : Form
                 return;
             }
 
+            var gebruikerId = reader.GetInt32("gebruiker_id");
             var rol = reader.GetString("rol");
             var actief = reader.GetBoolean("actief");
 
@@ -49,6 +50,30 @@ public partial class FrmInloggen : Form
             {
                 MessageBox.Show("Account is niet actief.", "Inloggen", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            // Set a very small beginner-friendly session
+            Session.GebruikerId = gebruikerId;
+            Session.Rol = rol;
+            Session.IsIngelogd = true;
+
+            // If this gebruiker is also a klant, find the klant_id
+            if (rol == "Klant")
+            {
+                try
+                {
+                    using var conn2 = Database.DatabaseConnection.GetConnection();
+                    conn2.Open();
+                    using var cmd2 = conn2.CreateCommand();
+                    cmd2.CommandText = "SELECT klant_id FROM klanten WHERE gebruiker_id = @gid LIMIT 1";
+                    cmd2.Parameters.AddWithValue("@gid", gebruikerId);
+                    var val = cmd2.ExecuteScalar();
+                    if (val != null && val != DBNull.Value)
+                    {
+                        Session.KlantId = Convert.ToInt32(val);
+                    }
+                }
+                catch { /* non-critical: klant may not exist yet */ }
             }
 
             // Simple role-based navigation

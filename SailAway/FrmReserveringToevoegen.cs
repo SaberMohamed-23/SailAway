@@ -2,6 +2,9 @@ namespace SailAway;
 
 public partial class FrmReserveringToevoegen : Form
 {
+    // optional property to pre-select a boot when opened programmatically
+    public int SelectedBootId { get; set; }
+
     public FrmReserveringToevoegen()
     {
         InitializeComponent();
@@ -56,6 +59,47 @@ public partial class FrmReserveringToevoegen : Form
     {
         LoadLocations();
         LoadKlanten();
+        // If a SelectedBootId was provided, try to select correct locatie and boot
+        if (SelectedBootId > 0)
+        {
+            try
+            {
+                using var conn = Database.DatabaseConnection.GetConnection(); conn.Open();
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT locatie_id FROM boten WHERE boot_id = @id LIMIT 1";
+                cmd.Parameters.AddWithValue("@id", SelectedBootId);
+                var val = cmd.ExecuteScalar();
+                if (val != null && val != DBNull.Value)
+                {
+                    var locId = Convert.ToInt32(val);
+                    for (int i = 0; i < cmbLocatie.Items.Count; i++)
+                    {
+                        if (cmbLocatie.Items[i] is ComboItem it && it.Id == locId)
+                        {
+                            cmbLocatie.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    // LoadBoatsForLocation will select the first boat; select the provided one
+                    LoadBoatsForLocation(locId);
+                    for (int i = 0; i < cmbBoot.Items.Count; i++) if (cmbBoot.Items[i] is ComboItem it2 && it2.Id == SelectedBootId) { cmbBoot.SelectedIndex = i; break; }
+                }
+            }
+            catch { }
+        }
+        // If user is logged in and is a klant, pre-select and lock klant
+        if (Session.IsIngelogd && Session.KlantId > 0)
+        {
+            for (int i = 0; i < cmbKlant.Items.Count; i++)
+            {
+                if (cmbKlant.Items[i] is ComboItem it && it.Id == Session.KlantId)
+                {
+                    cmbKlant.SelectedIndex = i;
+                    break;
+                }
+            }
+            cmbKlant.Enabled = false;
+        }
         cmbStatus.SelectedIndex = 0; // default
     }
 
@@ -154,6 +198,13 @@ public partial class FrmReserveringToevoegen : Form
 
         // Check capacity
         if (aantal > boot.Capacity) { MessageBox.Show($"Aantal personen ({aantal}) is groter dan de capaciteit van de boot ({boot.Capacity}).", "Fout", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+
+        // If user is logged in, use Session.KlantId as the klant
+        if (Session.IsIngelogd && Session.KlantId > 0)
+        {
+            // override selected klant with session klant
+            klant = new ComboItem { Id = Session.KlantId, Name = klant.Name, Capacity = klant.Capacity };
+        }
 
         // Check overlapping reservations
         try

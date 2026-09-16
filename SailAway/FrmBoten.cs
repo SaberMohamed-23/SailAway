@@ -11,10 +11,7 @@ public partial class FrmBoten : Form
 
     private void FrmBoten_Load(object? sender, EventArgs e)
     {
-        // hide static sample groupboxes
-        grpBoot1.Visible = false;
-        grpBoot2.Visible = false;
-        grpBoot3.Visible = false;
+        // dynamic boat listing in code; designer sample groupboxes were removed
 
         // load locaties and bootsoorten into comboboxes from DB
         try

@@ -42,9 +42,10 @@ partial class FrmBootBewerken
         Controls.AddRange(new Control[] { lblTitel, lbl_txtNaam, txtNaam, lbl_txtMerk, txtMerk, lbl_cmbType, cmbType, lbl_nudCapaciteit, nudCapaciteit, lbl_nudBouwjaar, nudBouwjaar, lbl_nudLengte, nudLengte, lbl_cmbLocatie, cmbLocatie, lbl_nudPrijs, nudPrijs, lbl_txtOmschrijving, txtOmschrijving, btnPrimary, btnAnnuleren });
 
         AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(984, 611);
+        ClientSize = new Size(800, 600);
+        MinimumSize = new Size(720, 560);
         Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;

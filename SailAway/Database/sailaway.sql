@@ -117,8 +117,7 @@ CREATE TABLE boten
     CONSTRAINT CK_boten_lengte CHECK (lengte > 0),
     CONSTRAINT CK_boten_prijs CHECK (prijs_per_uur >= 0),
 
-    -- Nodig voor de samengestelde FK vanuit reserveringen.
-    CONSTRAINT AK_boten_boot_locatie UNIQUE (boot_id, locatie_id)
+    -- Note: unique constraint on (boot_id, locatie_id) removed as boot_id is already unique (primary key).
 );
 
 CREATE TABLE reserveringen

@@ -49,6 +49,20 @@ public partial class FrmReserveringBewerken : Form
         LoadLocations();
         LoadKlanten();
         if (_reserveringId > 0) LoadReservering();
+        // If logged-in klant is present and not an admin editing others, optionally lock klant selection
+        if (Session.IsIngelogd && Session.KlantId > 0)
+        {
+            // if editing own reservation, select and lock klant
+            for (int i = 0; i < cmbKlant.Items.Count; i++)
+            {
+                if (cmbKlant.Items[i] is ComboItem it && it.Id == Session.KlantId)
+                {
+                    cmbKlant.SelectedIndex = i;
+                    cmbKlant.Enabled = false;
+                    break;
+                }
+            }
+        }
     }
 
     private class ComboItem
