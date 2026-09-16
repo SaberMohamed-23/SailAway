@@ -76,23 +76,9 @@ CREATE TABLE locaties
     CONSTRAINT AK_locaties_naam UNIQUE (naam)
 );
 
--- Welke bootsoorten worden op welke locatie aangeboden?
-CREATE TABLE locatie_bootsoorten
-(
-    locatie_id INT NOT NULL,
-    bootsoort_id INT NOT NULL,
 
-    CONSTRAINT PK_locatie_bootsoorten PRIMARY KEY (locatie_id, bootsoort_id),
-    CONSTRAINT FK_locatie_bootsoorten_locaties
-        FOREIGN KEY (locatie_id) REFERENCES locaties(locatie_id)
-        ON DELETE CASCADE,
-    CONSTRAINT FK_locatie_bootsoorten_bootsoorten
-        FOREIGN KEY (bootsoort_id) REFERENCES bootsoorten(bootsoort_id)
-        ON DELETE CASCADE
-);
 
-CREATE TABLE boten
-(
+CREATE TABLE boten (
     boot_id INT NOT NULL AUTO_INCREMENT,
     naam VARCHAR(100) NOT NULL,
     merk VARCHAR(100) NOT NULL,
@@ -106,18 +92,25 @@ CREATE TABLE boten
 
     CONSTRAINT PK_boten PRIMARY KEY (boot_id),
 
-    -- Each boat references a bootsoort and a locatie directly.
     CONSTRAINT FK_boten_bootsoort
-        FOREIGN KEY (bootsoort_id) REFERENCES bootsoorten(bootsoort_id),
+        FOREIGN KEY (bootsoort_id)
+        REFERENCES bootsoorten(bootsoort_id),
+
     CONSTRAINT FK_boten_locatie
-        FOREIGN KEY (locatie_id) REFERENCES locaties(locatie_id),
+        FOREIGN KEY (locatie_id)
+        REFERENCES locaties(locatie_id),
 
-    CONSTRAINT CK_boten_capaciteit CHECK (capaciteit > 0),
-    CONSTRAINT CK_boten_bouwjaar CHECK (bouwjaar BETWEEN 1900 AND 2100),
-    CONSTRAINT CK_boten_lengte CHECK (lengte > 0),
-    CONSTRAINT CK_boten_prijs CHECK (prijs_per_uur >= 0),
+    CONSTRAINT CK_boten_capaciteit
+        CHECK (capaciteit > 0),
 
-    -- Note: unique constraint on (boot_id, locatie_id) removed as boot_id is already unique (primary key).
+    CONSTRAINT CK_boten_bouwjaar
+        CHECK (bouwjaar BETWEEN 1900 AND 2100),
+
+    CONSTRAINT CK_boten_lengte
+        CHECK (lengte > 0),
+
+    CONSTRAINT CK_boten_prijs
+        CHECK (prijs_per_uur >= 0)
 );
 
 CREATE TABLE reserveringen
