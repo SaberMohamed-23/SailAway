@@ -22,8 +22,7 @@ partial class FrmLocatiesBeheer
         dgv.Columns.Add("Naam", "Naam");
         dgv.Columns.Add("Adres", "Adres");
         dgv.Columns.Add("Beschrijving", "Beschrijving");
-        dgv.Rows.Add("Sail Away Veghel", "Havenstraat 1, Veghel", "Startlocatie Veghel");
-        dgv.Rows.Add("Sail Away Oss", "Havenweg 10, Oss", "Startlocatie Oss");
+        // Designer demo rows removed; runtime data is loaded from the database in code-behind.
         btnToevoegen = new Button(); btnToevoegen.Location = new Point(825,115); btnToevoegen.Size = new Size(120,38); btnToevoegen.Text = "Toevoegen"; btnToevoegen.BackColor = Color.FromArgb(181, 32, 46); btnToevoegen.ForeColor = Color.White; btnToevoegen.FlatStyle = FlatStyle.Flat; btnToevoegen.Click += btnToevoegen_Click;
         btnBewerken = new Button(); btnBewerken.Location = new Point(825,170); btnBewerken.Size = new Size(120,38); btnBewerken.Text = "Bewerken"; btnBewerken.Click += btnBewerken_Click;
         btnVerwijderen = new Button(); btnVerwijderen.Location = new Point(825,225); btnVerwijderen.Size = new Size(120,38); btnVerwijderen.Text = "Verwijderen"; btnVerwijderen.Click += btnVerwijderen_Click;
