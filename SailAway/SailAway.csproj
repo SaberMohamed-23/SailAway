@@ -9,4 +9,16 @@
   <ItemGroup>
     <PackageReference Include="MySqlConnector" Version="2.6.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ORMModel1._ORMCustomToolReport.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ORMModel1.orm</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ORMModel1.orm">
+      <Generator>ORMCustomTool</Generator>
+      <LastGenOutput>ORMModel1._ORMCustomToolReport.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>
