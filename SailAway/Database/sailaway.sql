@@ -1,18 +1,3 @@
-
-/*
-    Project: SailAway Botenverhuur
-    Database: MySQL / MariaDB via XAMPP
-
-    Deze database is afgestemd op de SailAway-usecases:
-    - klanten registreren/inloggen en eigen gegevens beheren
-    - klanten zoeken op achternaam, telefoonnummer en e-mail
-    - boten beheren en koppelen aan bootsoort + locatie
-    - per locatie bepalen welke bootsoorten worden aangeboden
-    - boten filteren op locatie, type en capaciteit
-    - reserveringen maken/wijzigen/annuleren met datum en tijd
-    - dubbele reserveringen van dezelfde boot voorkomen
-*/
-
 DROP DATABASE IF EXISTS sailaway;
 
 CREATE DATABASE sailaway

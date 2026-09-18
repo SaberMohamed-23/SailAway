@@ -86,11 +86,10 @@ partial class FrmBootsoortBewerken
         // 
         // FrmBootsoortBewerken
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(120F, 120F);
         AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.White;
-        ClientSize = new Size(700, 520);
-        MinimumSize = new Size(640, 480);
+        ClientSize = new Size(806, 542);
         Controls.Add(lblTitel);
         Controls.Add(lbl_txtNaam);
         Controls.Add(txtNaam);
@@ -101,6 +100,7 @@ partial class FrmBootsoortBewerken
         Font = new Font("Segoe UI", 10F);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;
+        MinimumSize = new Size(640, 480);
         Name = "FrmBootsoortBewerken";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Bootsoort bewerken";
