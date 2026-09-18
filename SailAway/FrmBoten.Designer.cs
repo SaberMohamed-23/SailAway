@@ -12,52 +12,110 @@ partial class FrmBoten
 
     private void InitializeComponent()
     {
-        menuStrip1 = new MenuStrip();
-        mnuHome = new ToolStripMenuItem();
-        mnuBoten = new ToolStripMenuItem();
-        mnuReserveringen = new ToolStripMenuItem();
-        mnuAccount = new ToolStripMenuItem();
-        menuStrip1.Items.AddRange(new ToolStripItem[] { mnuHome, mnuBoten, mnuReserveringen, mnuAccount });
-        menuStrip1.Location = new Point(0, 0);
-        menuStrip1.Name = "menuStrip1";
-        menuStrip1.Size = new Size(984, 24);
-        menuStrip1.BackColor = Color.White;
-        mnuHome.Text = "Home";
-        mnuBoten.Text = "Boten";
-        mnuReserveringen.Text = "Mijn reserveringen";
-        mnuAccount.Text = "Account";
-        // wire menu actions
-        mnuHome.Click += (s, e) => { var f = new FrmStart(); f.Show(); }; // preserved wiring
-        mnuBoten.Click += (s, e) => { var f = new FrmBoten(); f.Show(); }; // preserved wiring
-        mnuReserveringen.Click += (s, e) => { var f = new FrmMijnReserveringen(); f.Show(); }; // preserved wiring
-        mnuAccount.Click += (s, e) => { var f = new FrmAccount(); f.Show(); }; // preserved wiring
-        lblTitel = new Label();
-        lblTitel.AutoSize = true;
-        lblTitel.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
-        lblTitel.ForeColor = Color.FromArgb(52, 58, 70);
-        lblTitel.Location = new Point(45, 52);
-        lblTitel.Text = "Beschikbare boten";
-        lblLocatie = new Label(); cmbLocatie = new ComboBox(); lblDatum = new Label(); dtpDatum = new DateTimePicker(); lblTijd = new Label(); dtpTijd = new DateTimePicker(); lblTypeBoot = new Label(); cmbTypeBoot = new ComboBox(); lblPersonen = new Label(); nudPersonen = new NumericUpDown(); btnZoeken = new Button();
-        lblLocatie.Location = new Point(45, 120); lblLocatie.Text = "Locatie:"; cmbLocatie.Location = new Point(45, 145); cmbLocatie.Size = new Size(160, 25); cmbLocatie.DropDownStyle = ComboBoxStyle.DropDownList;
-        lblDatum.Location = new Point(220, 120); lblDatum.Text = "Datum:"; dtpDatum.Location = new Point(220, 145); dtpDatum.Size = new Size(145,25); dtpDatum.Format = DateTimePickerFormat.Short;
-        lblTijd.Location = new Point(380,120); lblTijd.Text = "Tijd:"; dtpTijd.Location = new Point(380,145); dtpTijd.Size = new Size(120,25); dtpTijd.Format = DateTimePickerFormat.Time; dtpTijd.ShowUpDown = true;
-        lblTypeBoot.Location = new Point(515,120); lblTypeBoot.Text = "Type boot:"; cmbTypeBoot.Location = new Point(515,145); cmbTypeBoot.Size = new Size(145,25); cmbTypeBoot.DropDownStyle = ComboBoxStyle.DropDownList;
-        lblPersonen.Location = new Point(675,120); lblPersonen.Text = "Aantal personen:"; nudPersonen.Location = new Point(675,145); nudPersonen.Minimum = 1; nudPersonen.Maximum = 20; nudPersonen.Value = 1;
-        btnZoeken.Location = new Point(810,140); btnZoeken.Size = new Size(120,35); btnZoeken.Text = "Zoeken"; btnZoeken.BackColor = Color.FromArgb(181, 32, 46); btnZoeken.ForeColor = Color.White; btnZoeken.FlatStyle = FlatStyle.Flat;
-        // designer sample groupboxes removed; dynamic listing is created at runtime
-        Controls.AddRange(new Control[] { menuStrip1, lblTitel, lblLocatie, cmbLocatie, lblDatum, dtpDatum, lblTijd, dtpTijd, lblTypeBoot, cmbTypeBoot, lblPersonen, nudPersonen, btnZoeken }); MainMenuStrip = menuStrip1;
+        this.menuStrip1 = new MenuStrip();
+        this.mnuHome = new ToolStripMenuItem();
+        this.mnuBoten = new ToolStripMenuItem();
+        this.mnuReserveringen = new ToolStripMenuItem();
+        this.mnuAccount = new ToolStripMenuItem();
 
-        AutoScaleDimensions = new SizeF(7F, 15F);
-        AutoScaleMode = AutoScaleMode.Font;
-        BackColor = Color.White;
-        ClientSize = new Size(984, 611);
-        Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-        FormBorderStyle = FormBorderStyle.FixedSingle;
-        MaximizeBox = false;
-        StartPosition = FormStartPosition.CenterScreen;
-        Text = "Boten bekijken";
-        ResumeLayout(false);
-        PerformLayout();
+        this.lblTitel = new Label();
+
+        this.lblLocatie = new Label();
+        this.cmbLocatie = new ComboBox();
+
+        this.lblTypeBoot = new Label();
+        this.cmbTypeBoot = new ComboBox();
+
+        this.lblSorteer = new Label();
+        this.cmbSorteer = new ComboBox();
+
+        this.btnZoeken = new Button();
+
+        this.SuspendLayout();
+
+        // 
+        // menuStrip1
+        // 
+        this.menuStrip1.Items.AddRange(new ToolStripItem[] { this.mnuHome, this.mnuBoten, this.mnuReserveringen, this.mnuAccount });
+        this.menuStrip1.Location = new Point(0, 0);
+        this.menuStrip1.Name = "menuStrip1";
+        this.menuStrip1.Size = new Size(984, 24);
+        this.menuStrip1.BackColor = Color.White;
+
+        this.mnuHome.Text = "Home";
+        this.mnuBoten.Text = "Boten";
+        this.mnuReserveringen.Text = "Mijn reserveringen";
+        this.mnuAccount.Text = "Account";
+
+        // 
+        // lblTitel
+        // 
+        this.lblTitel.AutoSize = true;
+        this.lblTitel.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
+        this.lblTitel.ForeColor = Color.FromArgb(52, 58, 70);
+        this.lblTitel.Location = new Point(45, 52);
+        this.lblTitel.Text = "Beschikbare boten";
+
+        // 
+        // Filters & Controls
+        // 
+        this.lblLocatie.Location = new Point(45, 120);
+        this.lblLocatie.AutoSize = true;
+        this.lblLocatie.Text = "Locatie:";
+
+        this.cmbLocatie.Location = new Point(45, 145);
+        this.cmbLocatie.Size = new Size(200, 25);
+        this.cmbLocatie.DropDownStyle = ComboBoxStyle.DropDownList;
+
+        this.lblTypeBoot.Location = new Point(270, 120);
+        this.lblTypeBoot.AutoSize = true;
+        this.lblTypeBoot.Text = "Type boot:";
+
+        this.cmbTypeBoot.Location = new Point(270, 145);
+        this.cmbTypeBoot.Size = new Size(200, 25);
+        this.cmbTypeBoot.DropDownStyle = ComboBoxStyle.DropDownList;
+
+        this.lblSorteer.Location = new Point(495, 120);
+        this.lblSorteer.AutoSize = true;
+        this.lblSorteer.Text = "Sorteren op:";
+
+        this.cmbSorteer.Location = new Point(495, 145);
+        this.cmbSorteer.Size = new Size(200, 25);
+        this.cmbSorteer.DropDownStyle = ComboBoxStyle.DropDownList;
+
+        // Zoek knop
+        this.btnZoeken.Location = new Point(720, 140);
+        this.btnZoeken.Size = new Size(120, 32);
+        this.btnZoeken.Text = "Zoeken";
+        this.btnZoeken.BackColor = Color.FromArgb(181, 32, 46);
+        this.btnZoeken.ForeColor = Color.White;
+        this.btnZoeken.FlatStyle = FlatStyle.Flat;
+
+        // 
+        // Form Settings
+        // 
+        this.Controls.AddRange(new Control[] {
+            this.menuStrip1, this.lblTitel,
+            this.lblLocatie, this.cmbLocatie,
+            this.lblTypeBoot, this.cmbTypeBoot,
+            this.lblSorteer, this.cmbSorteer,
+            this.btnZoeken
+        });
+
+        this.MainMenuStrip = this.menuStrip1;
+
+        this.AutoScaleDimensions = new SizeF(7F, 15F);
+        this.AutoScaleMode = AutoScaleMode.Font;
+        this.BackColor = Color.White;
+        this.ClientSize = new Size(984, 611);
+        this.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        this.FormBorderStyle = FormBorderStyle.FixedSingle; // Gecorrigeerd!
+        this.MaximizeBox = false;
+        this.StartPosition = FormStartPosition.CenterScreen;
+        this.Text = "Boten bekijken";
+
+        this.ResumeLayout(false);
+        this.PerformLayout();
     }
 
     private MenuStrip menuStrip1;
@@ -65,7 +123,13 @@ partial class FrmBoten
     private ToolStripMenuItem mnuBoten;
     private ToolStripMenuItem mnuReserveringen;
     private ToolStripMenuItem mnuAccount;
-    private Label lblTitel;
-    private Label lblLocatie,lblDatum,lblTijd,lblTypeBoot,lblPersonen; private ComboBox cmbLocatie,cmbTypeBoot; private DateTimePicker dtpDatum,dtpTijd; private NumericUpDown nudPersonen; private Button btnZoeken; private GroupBox grpBoot1,grpBoot2,grpBoot3; private Label lblBoot1,lblBoot2,lblBoot3; private Button btnBoot1,btnBoot2,btnBoot3;
 
+    private Label lblTitel;
+    private Label lblLocatie;
+    private ComboBox cmbLocatie;
+    private Label lblTypeBoot;
+    private ComboBox cmbTypeBoot;
+    private Label lblSorteer;
+    private ComboBox cmbSorteer;
+    private Button btnZoeken;
 }
